@@ -47,7 +47,6 @@ export async function DELETE(req, { params }) {
       .select(); // select() returns the deleted row(s)
 
     if (error) {
-      console.error("Supabase DELETE error:", error);
       return Response.json({ error: error.message }, { status: 400 });
     }
 
