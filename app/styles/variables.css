@@ -1,0 +1,25 @@
+:root {
+  /*Color palette*/
+  --color-primary: #22c55e;
+  --color-secondry: #00acc1;
+  --color-primary-light: #86efac;
+  --color-primary-dark: #15803d;
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-border-divider: #e5e7eb;
+  --color-border-focus: #9ca3af;
+  --color-box-shadow: #22c55e26;
+  --color-error: #ef4444;
+  --color-border-error: #ef4444;
+
+  /*Application status colors*/
+  --color-status-applied: #64748b;
+  --color-status-more-info: #00acc1;
+  --color-status-phone-interview: #38bdf8;
+  --color-status-technical-interview: #4caf50;
+  --color-status-offer: #22c55e;
+  --color-status-rejected: #f4b400;
+  --color-status-no-response: #9ca3af;
+}

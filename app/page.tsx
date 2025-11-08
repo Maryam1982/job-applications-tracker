@@ -1,3 +1,3 @@
 export default function Home() {
-  return <h1>Job Applications Tracker</h1>;
+  return <h1 className="text-center">Job Applications Tracker</h1>;
 }

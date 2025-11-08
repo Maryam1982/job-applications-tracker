@@ -1,26 +1,95 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "./styles/variables.css";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-primary: var(--color-primary);
+  --color-secondry: var(--color-secondry);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-border-divider: var(--color-border-divider);
+  --color-border-focus: var(--color-border-focus);
+  --color-box-shadow: var(--color-box-shadow);
+  --color-error: var(--color-error);
+  --color-border-error: var(--color-border-error);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-status-applied: var(--color-status-applied);
+  --color-status-more-info: var(--color-status-more-info);
+  --color-status-phone-interview: var(--color-status-phone-interview);
+  --color-status-technical-interview: var(--color-status-technical-interview);
+  --color-status-offer: var(--color-status-offer);
+  --color-status-rejected: var(--color-status-rejected);
+  --color-status-no-response: var(--color-status-no-response);
+
+  --font-primary: var(--font-primary);
+  --font-secondary: var(--font-secondary);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+button {
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s ease;
+  font-family: var(--font-secondary);
+}
+
+button:hover {
+  background-color: var(--color-primary-dark);
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  /* border: 1px solid var(--color-border-divider); */
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  font-family: var(--font-secondary);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border: 1px solid var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-box-shadow);
+}
+
+input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-surface) inset !important;
+  -webkit-text-fill-color: var(--color-text-primary) !important;
+  transition: background-color 5000s ease-in-out 0s;
 }
