@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { ApplicationCreate, ApplicationUpdate } from "../types";
+
+interface JobFormProps {
+  onSubmit: (data: ApplicationCreate) => Promise<void>;
+  initialData?: ApplicationUpdate;
+}
 
 const statusList = [
   "Applied",
@@ -18,7 +24,7 @@ type ErrorState = {
   appliedOn: string;
 };
 
-export default function JobForm() {
+export default function JobForm({ onSubmit }: JobFormProps) {
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
   const [status, setStatus] = useState("Applied");
@@ -36,9 +42,10 @@ export default function JobForm() {
     status: "",
     appliedOn: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrors({ company: "", position: "", status: "", appliedOn: "" });
 
@@ -59,7 +66,30 @@ export default function JobForm() {
 
     const isValid = Object.values(newErrors).every((val) => val === "");
     if (isValid) {
-      setSubmitted(true);
+      setIsSubmitting(true);
+      try {
+        await onSubmit({
+          company,
+          position,
+          status,
+          applied_on: appliedOn,
+          notes,
+        });
+        setMessage("Application added successfully!");
+        setCompany("");
+        setPosition("");
+        setNotes("");
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+          setMessage(`Error: ${error.message}`);
+        } else
+          setMessage(
+            "Something went wrong while trying to add the job application."
+          );
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   }
 
@@ -174,14 +204,10 @@ export default function JobForm() {
           ></textarea>
         </label>
         <button type="submit" className="w-full">
-          Submit
+          {isSubmitting ? "Submitting..." : "Submit"}
         </button>
+        {message && <p className="text-sm text-center mt-2">{message}</p>}
       </form>
-      {submitted && (
-        <p className="mt-4 text-primary-dark">
-          Validation is completed. Ready for the backend integration!
-        </p>
-      )}
     </div>
   );
 }
