@@ -60,14 +60,6 @@ button:hover {
   cursor: pointer;
 }
 
-button.submit {
-  background-color: var(--color-primary);
-}
-
-button.submit:hover {
-  background-color: var(--color-primary-dark);
-}
-
 input,
 textarea,
 select {
