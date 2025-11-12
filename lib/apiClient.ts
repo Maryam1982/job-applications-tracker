@@ -29,7 +29,7 @@ export async function updateApplication(id: string, data: ApplicationUpdate) {
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(toApiPayload(data as ApplicationCreate)),
+    body: JSON.stringify(toApiPayload(data)),
   });
   if (!res.ok) {
     throw new Error(`Failed to update application ${id}`);

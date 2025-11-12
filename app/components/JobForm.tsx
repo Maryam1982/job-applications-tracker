@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { ApplicationCreate, ApplicationUpdate } from "../types";
 
 interface JobFormProps {
-  onSubmit: (data: ApplicationCreate) => Promise<void>;
+  onSubmit: (data: ApplicationCreate | ApplicationUpdate) => Promise<void>;
   initialData?: ApplicationUpdate;
 }
 
@@ -24,18 +24,21 @@ type ErrorState = {
   appliedOn: string;
 };
 
-export default function JobForm({ onSubmit }: JobFormProps) {
-  const [company, setCompany] = useState("");
-  const [position, setPosition] = useState("");
-  const [status, setStatus] = useState("Applied");
+export default function JobForm({ onSubmit, initialData }: JobFormProps) {
+  const [company, setCompany] = useState(initialData?.company || "");
+  const [position, setPosition] = useState(initialData?.position || "");
+  const [status, setStatus] = useState(initialData?.status || "Applied");
   const [appliedOn, setAppliedOn] = useState(() => {
+    if (initialData?.applied_on) {
+      return initialData?.applied_on;
+    }
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, "0");
     const day = String(today.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   });
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState(initialData?.notes || "");
   const [errors, setErrors] = useState<ErrorState>({
     company: "",
     position: "",
@@ -75,10 +78,14 @@ export default function JobForm({ onSubmit }: JobFormProps) {
           applied_on: appliedOn,
           notes,
         });
-        setMessage("Application added successfully!");
-        setCompany("");
-        setPosition("");
-        setNotes("");
+        if (initialData) {
+          setMessage("Application updated successfully!");
+        } else {
+          setMessage("Application added successfully!");
+          setCompany("");
+          setPosition("");
+          setNotes("");
+        }
       } catch (error) {
         if (error instanceof Error) {
           console.log(error.message);
@@ -203,7 +210,11 @@ export default function JobForm({ onSubmit }: JobFormProps) {
             className="w-full p-2 border border-border-divider rounded"
           ></textarea>
         </label>
-        <button type="submit" className="w-full">
+        <button
+          type="submit"
+          className="w-full bg-primary hover:bg-primary-dark"
+          disabled={isSubmitting}
+        >
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>
         {message && <p className="text-sm text-center mt-2">{message}</p>}

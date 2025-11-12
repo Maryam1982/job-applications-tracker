@@ -1,6 +1,11 @@
-import { ApplicationCreate, Application, ApplicationRow } from "@/app/types";
+import {
+  ApplicationCreate,
+  Application,
+  ApplicationRow,
+  ApplicationUpdate,
+} from "@/app/types";
 
-export function toApiPayload(app: ApplicationCreate) {
+export function toApiPayload(app: ApplicationCreate | ApplicationUpdate) {
   return {
     company_name: app.company,
     job_title: app.position,

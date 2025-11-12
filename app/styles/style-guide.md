@@ -20,6 +20,7 @@
 | **Text (Secondary)**            | Cool Gray      | `#6B7280` | <span style="display:inline-block;width:20px;height:20px;background:#6B7280;border-radius:4px;"></span>                       |
 | **Border / Divider**            | Soft Gray      | `#E5E7EB` | <span style="display:inline-block;width:20px;height:20px;background:#E5E7EB;border-radius:4px;border:1px solid #ccc;"></span> |
 | **Secondary Accent (Optional)** | Teal           | `#00ACC1` | <span style="display:inline-block;width:20px;height:20px;background:#00ACC1;border-radius:4px;"></span>                       |
+| **Secondary Accent Dark**       | Darker Teal    | `#0097A7` | <span style="display:inline-block;width:20px;height:20px;background:#0097A7;border-radius:4px;"></span>                       |
 
 ---
 
