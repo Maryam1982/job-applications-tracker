@@ -17,7 +17,9 @@ export default async function Home() {
       <h1 className="text-center text-2xl font-semibold mb-6">
         Job Applications Tracker
       </h1>
-      <SearchCoordinator applications={applications} />
+      <div className="pt-6">
+        <SearchCoordinator applications={applications} />
+      </div>
     </main>
   );
 }

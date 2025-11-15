@@ -6,7 +6,7 @@ export async function getAllApplications(): Promise<Application[]> {
   const { data, error } = await supabaseAdmin
     .from("job_applications")
     .select("*")
-    .order("id", { ascending: false });
+    .order("created_at", { ascending: false });
 
   if (error) {
     const message =

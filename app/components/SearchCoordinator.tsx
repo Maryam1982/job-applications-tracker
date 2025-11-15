@@ -56,17 +56,20 @@ export default function SearchCoordinator({
 
   return (
     <div>
-      <SelectBar
-        applications={applications}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        status={status}
-        setStatus={setStatus}
-        company={company}
-        setCompany={setCompany}
-        dateFilter={dateFilter}
-        setDateFilter={setDateFilter}
-      />
+      <div className="sticky top-0 p-2 bg-border-divider rounded-sm">
+        <SelectBar
+          applications={applications}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          status={status}
+          setStatus={setStatus}
+          company={company}
+          setCompany={setCompany}
+          dateFilter={dateFilter}
+          setDateFilter={setDateFilter}
+        />
+      </div>
+
       <JobList applications={filteredApplications} />
     </div>
   );
