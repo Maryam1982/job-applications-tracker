@@ -1,19 +1,13 @@
 import JobItem from "./JobItem";
 
-import { getAllApplications } from "@/lib/api";
+import { Application } from "../types";
 
-export default async function JobList() {
-  let applications;
-  try {
-    applications = await getAllApplications();
-  } catch (error) {
-    const message =
-      error instanceof Error
-        ? `Failed to load applications: ${error.message}`
-        : "Something went wrong while loading applications.";
-    return <p className="text-center text-error mt-8">{message}</p>;
-  }
-
+export default function JobList({
+  applications,
+}: {
+  applications: Application[];
+}) {
+  console.log("applications", applications);
   if (!applications.length) {
     return <p className="text-center mt-8">No applications found.</p>;
   }

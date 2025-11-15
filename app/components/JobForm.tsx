@@ -1,21 +1,12 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { ApplicationCreate, ApplicationUpdate } from "../types";
+import { STATUS_LIST } from "../constants";
 
 interface JobFormProps {
   onSubmit: (data: ApplicationCreate | ApplicationUpdate) => Promise<void>;
   initialData?: ApplicationUpdate;
 }
-
-const statusList = [
-  "Applied",
-  "More Information Requested",
-  "Phone Interview",
-  "Technical Interview",
-  "Offer Received",
-  "Rejected",
-  "No Response",
-];
 
 type ErrorState = {
   company: string;
@@ -190,7 +181,7 @@ export default function JobForm({ onSubmit, initialData }: JobFormProps) {
             )}
           >
             <option value="">--Select Status--</option>
-            {statusList.map((item, index) => (
+            {STATUS_LIST.map((item, index) => (
               <option key={index} value={item}>
                 {item}
               </option>
