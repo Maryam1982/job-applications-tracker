@@ -4,13 +4,10 @@ import { NextRequest } from "next/server";
 // PATCH: edit an application
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const updates = await request.json();
   const { id } = await params;
-
-  console.log("UPDATES RECEIVED", updates);
-  console.log("ID RECEIVED", id);
 
   if (!updates || Object.keys(updates).length === 0) {
     return Response.json({ error: "No data provided" }, { status: 400 });
@@ -63,7 +60,7 @@ export async function PATCH(
 //DELETE: delete an application
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } | Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;

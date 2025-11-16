@@ -7,7 +7,6 @@ export default function JobList({
 }: {
   applications: Application[];
 }) {
-  console.log("applications", applications);
   if (!applications.length) {
     return <p className="text-center mt-8">No applications found.</p>;
   }

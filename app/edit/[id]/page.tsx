@@ -2,9 +2,13 @@ import { getApplication } from "@/lib/api";
 import EditClient from "./EditClient";
 import { Application } from "@/app/types";
 
-export default async function EditPage({ params }: { params: { id: string } }) {
+export default async function EditPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
-  console.log("ID param:", id);
+
   let application: Application | null = null;
 
   try {
