@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { ApplicationCreate, ApplicationUpdate } from "../types";
 import { STATUS_LIST } from "../constants";
 
-interface JobFormProps {
-  onSubmit: (data: ApplicationCreate | ApplicationUpdate) => Promise<void>;
-  initialData?: ApplicationUpdate;
+interface JobFormProps<T> {
+  onSubmit: (data: T) => Promise<void>;
+  initialData?: T;
 }
 
 type ErrorState = {
@@ -15,7 +15,9 @@ type ErrorState = {
   appliedOn: string;
 };
 
-export default function JobForm({ onSubmit, initialData }: JobFormProps) {
+export default function JobForm<
+  T extends ApplicationCreate | ApplicationUpdate
+>({ onSubmit, initialData }: JobFormProps<T>) {
   const [company, setCompany] = useState(initialData?.company || "");
   const [position, setPosition] = useState(initialData?.position || "");
   const [status, setStatus] = useState(initialData?.status || "Applied");
@@ -62,13 +64,16 @@ export default function JobForm({ onSubmit, initialData }: JobFormProps) {
     if (isValid) {
       setIsSubmitting(true);
       try {
-        await onSubmit({
+        const payload: T = {
           company,
           position,
           status,
           applied_on: appliedOn,
           notes,
-        });
+          ...(initialData && "id" in initialData ? { id: initialData.id } : {}),
+        } as T;
+
+        await onSubmit(payload);
         if (initialData) {
           setMessage("Application updated successfully!");
         } else {

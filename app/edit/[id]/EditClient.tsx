@@ -23,5 +23,10 @@ export default function EditClient({ id, initialData }: EditClientProps) {
     }
   };
 
-  return <JobForm onSubmit={handleEdit} initialData={initialData} />;
+  return (
+    <JobForm<ApplicationUpdate>
+      onSubmit={handleEdit}
+      initialData={initialData}
+    />
+  );
 }

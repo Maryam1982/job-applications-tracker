@@ -18,7 +18,7 @@ export default function AddPage() {
   };
   return (
     <>
-      <JobForm onSubmit={handleAdd} />
+      <JobForm<ApplicationCreate> onSubmit={handleAdd} />
     </>
   );
 }
