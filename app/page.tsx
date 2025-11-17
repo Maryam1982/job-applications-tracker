@@ -13,7 +13,7 @@ export default async function Home() {
     return <p className="text-center text-error mt-8">{message}</p>;
   }
   return (
-    <main className="max-w-2xl mx-auto p-6">
+    <main className="max-w-3xl mx-auto p-6">
       <h1 className="text-center text-2xl font-semibold mb-6">
         Job Applications Tracker
       </h1>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { ApplicationCreate, ApplicationUpdate } from "../types";
 import { STATUS_LIST } from "../constants";
+import { useRouter } from "next/navigation";
 
 interface JobFormProps<T> {
   onSubmit: (data: T) => Promise<void>;
@@ -40,6 +41,8 @@ export default function JobForm<
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
+
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -206,13 +209,24 @@ export default function JobForm<
             className="w-full p-2 border border-border-divider rounded"
           ></textarea>
         </label>
-        <button
-          type="submit"
-          className="w-full bg-primary hover:bg-primary-dark"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </button>
+        <div className="flex gap-2 justify-between w-full">
+          <button
+            type="submit"
+            className="flex-1 bg-primary hover:bg-primary-dark"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+
+          <button
+            type="button"
+            className="flex-1 bg-border-focus hover:bg-text-secondary w-full"
+            onClick={() => router.push("/")}
+          >
+            Cancel
+          </button>
+        </div>
+
         {message && <p className="text-sm text-center mt-2">{message}</p>}
       </form>
     </div>

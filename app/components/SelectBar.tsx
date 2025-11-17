@@ -35,55 +35,61 @@ export default function SelectBar({
   ];
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+      {/* Search */}
       <input
         placeholder="Search..."
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full sm:col-span-2 order-1"
       />
-      <div className="flex flex-col sm:flex-row justify-between gap-2">
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
-          className="text-sm"
-        >
-          <option value="">All Statuses</option>
-          {STATUS_LIST.map((item, index) => (
-            <option value={item} key={index}>
-              {item}
-            </option>
-          ))}
-        </select>
-        <select
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          className="text-sm"
-        >
-          <option value="">All Companies</option>
-          {companies.map((company, index) => (
-            <option value={company} key={index}>
-              {company}
-            </option>
-          ))}
-        </select>
-        <select
-          value={dateFilter}
-          onChange={(e) => {
-            setDateFilter(e.target.value as DateFilter);
-          }}
-          className="text-sm"
-        >
-          <option value="">Applied (Any Date)</option>
-          {DATE_FILTERS.map((item, index) => (
-            <option value={item} key={index}>
-              {item}
-            </option>
-          ))}
-        </select>
-      </div>
-      <Link href="/add" className="w-full sm:w-auto sm:self-end">
-        <button className="bg-primary hover:bg-primary-dark px-3 py-2 rounded-md w-full sm:w-auto sm:self-end">
+
+      {/* Status */}
+      <select
+        value={status}
+        onChange={(e) => setStatus(e.target.value as ApplicationStatus)}
+        className="text-sm w-full order-2"
+      >
+        <option value="">Status (Any)</option>
+        {STATUS_LIST.map((item, index) => (
+          <option value={item} key={index}>
+            {item}
+          </option>
+        ))}
+      </select>
+
+      {/* Company */}
+      <select
+        value={company}
+        onChange={(e) => setCompany(e.target.value)}
+        className="text-sm w-full order-3"
+      >
+        <option value="">All Companies</option>
+        {companies.map((company, index) => (
+          <option value={company} key={index}>
+            {company}
+          </option>
+        ))}
+      </select>
+
+      {/* Date */}
+      <select
+        value={dateFilter}
+        onChange={(e) => setDateFilter(e.target.value as DateFilter)}
+        className="text-sm w-full order-4"
+      >
+        <option value="">Applied (Any Date)</option>
+        {DATE_FILTERS.map((item, index) => (
+          <option value={item} key={index}>
+            {item}
+          </option>
+        ))}
+      </select>
+
+      {/* Add Application button */}
+      <Link href="/add" className="order-5 sm:order-1 sm:col-span-1">
+        <button className="bg-primary hover:bg-primary-dark px-3 py-2 rounded-md w-full whitespace-nowrap">
           Add Application
         </button>
       </Link>
