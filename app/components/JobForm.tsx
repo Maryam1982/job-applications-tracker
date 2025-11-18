@@ -100,135 +100,152 @@ export default function JobForm<
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen pt-8 px-4">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col justify-center items-center pt-2 px-4 w-full max-w-md"
-        noValidate
-      >
-        <label htmlFor="company" className="w-full flex flex-col mb-4">
-          Company:
-          <input
-            type="text"
-            placeholder="company name"
-            value={company}
-            onChange={(e) => {
-              setCompany(e.target.value);
-              setErrors({ ...errors, company: "" });
-            }}
-            name="company"
-            id="company"
-            required
-            className={cn(
-              "w-full p-2 border border-border-divider rounded",
-              !!errors.company && "border-border-error"
+    <div className="flex flex-col items-center justify-center min-h-screen pt-8 px-4 ">
+      <h1 className="text-xl font-semibold pb-2 mb-4  text-center">
+        {initialData ? "Edit Application" : "Add New Application"}
+      </h1>
+      <div className="bg-surface border border-border-divider rounded-md shadow-sm p-6 w-full max-w-md">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col justify-center items-center pt-2 px-4 w-full max-w-md"
+          noValidate
+        >
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="company" className="mb-2 text-sm font-medium">
+              Company:
+            </label>
+            <input
+              type="text"
+              placeholder="company name"
+              value={company}
+              onChange={(e) => {
+                setCompany(e.target.value);
+                setErrors({ ...errors, company: "" });
+              }}
+              name="company"
+              id="company"
+              required
+              className={cn(
+                "w-full p-2 border border-border-divider rounded bg-background",
+                !!errors.company && "border-border-error"
+              )}
+            />
+            {!!errors.company && (
+              <p className="text-sm text-error mt-1">{errors.company}</p>
             )}
-          />
-          {!!errors.company && (
-            <p className="text-sm text-error mt-1">{errors.company}</p>
-          )}
-        </label>
-        <label htmlFor="position" className="w-full flex flex-col mb-4">
-          Position:
-          <input
-            type="text"
-            placeholder="position"
-            value={position}
-            onChange={(e) => {
-              setPosition(e.target.value);
-              setErrors({ ...errors, position: "" });
-            }}
-            name="position"
-            id="position"
-            required
-            className={cn(
-              "w-full p-2 border border-border-divider rounded",
-              !!errors.position && "border-border-error"
+          </div>
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="company" className="mb-2 text-sm font-medium">
+              Position:
+            </label>
+            <input
+              type="text"
+              placeholder="position"
+              value={position}
+              onChange={(e) => {
+                setPosition(e.target.value);
+                setErrors({ ...errors, position: "" });
+              }}
+              name="position"
+              id="position"
+              required
+              className={cn(
+                "w-full p-2 border border-border-divider rounded bg-background",
+                !!errors.position && "border-border-error"
+              )}
+            />
+            {!!errors.position && (
+              <p className="text-sm text-error mt-1">{errors.position}</p>
             )}
-          />
-          {!!errors.position && (
-            <p className="text-sm text-error mt-1">{errors.position}</p>
-          )}
-        </label>
-        <label htmlFor="appliedOn" className="w-full flex flex-col mb-4">
-          Applied On:
-          <input
-            type="date"
-            placeholder="applied on"
-            value={appliedOn}
-            onChange={(e) => {
-              setAppliedOn(e.target.value);
-              setErrors({ ...errors, appliedOn: "" });
-            }}
-            name="appliedOn"
-            id="appliedOn"
-            required
-            className={cn(
-              "w-full p-2 border border-border-divider rounded",
-              !!errors.appliedOn && "border-border-error"
-            )}
-          />
-          {!!errors.appliedOn && (
-            <p className="text-sm text-error mt-1">{errors.appliedOn}</p>
-          )}
-        </label>
-        <label htmlFor="status" className="w-full flex flex-col mb-4">
-          Status:
-          <select
-            name="status"
-            value={status}
-            onChange={(e) => {
-              setStatus(e.target.value);
-              setErrors({ ...errors, status: "" });
-            }}
-            id="status"
-            required
-            className={cn(
-              "w-full p-2 border border-border-divider rounded",
-              !!errors.status && "border-border-error"
-            )}
-          >
-            <option value="">--Select Status--</option>
-            {STATUS_LIST.map((item, index) => (
-              <option key={index} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-          {!!errors.status && (
-            <p className="text-sm text-error mt-1">{errors.status}</p>
-          )}
-        </label>
-        <label htmlFor="notes" className="w-full flex flex-col mb-4">
-          Notes:
-          <textarea
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            name="notes"
-            id="notes"
-            className="w-full p-2 border border-border-divider rounded"
-          ></textarea>
-        </label>
-        <div className="flex gap-2 justify-between w-full">
-          <button
-            type="submit"
-            className="flex-1 bg-primary hover:bg-primary-dark"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting..." : "Submit"}
-          </button>
+          </div>
 
-          <button
-            type="button"
-            className="flex-1 bg-border-focus hover:bg-text-secondary w-full"
-            onClick={() => router.push("/")}
-          >
-            Cancel
-          </button>
-        </div>
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="company" className="mb-2 text-sm font-medium">
+              Applied On:
+            </label>
+            <input
+              type="date"
+              placeholder="applied on"
+              value={appliedOn}
+              onChange={(e) => {
+                setAppliedOn(e.target.value);
+                setErrors({ ...errors, appliedOn: "" });
+              }}
+              name="appliedOn"
+              id="appliedOn"
+              required
+              className={cn(
+                "w-full p-2 border border-border-divider rounded bg-background",
+                !!errors.appliedOn && "border-border-error"
+              )}
+            />
+            {!!errors.appliedOn && (
+              <p className="text-sm text-error mt-1">{errors.appliedOn}</p>
+            )}
+          </div>
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="company" className="mb-2 text-sm font-medium">
+              Status:
+            </label>
+            <select
+              name="status"
+              value={status}
+              onChange={(e) => {
+                setStatus(e.target.value);
+                setErrors({ ...errors, status: "" });
+              }}
+              id="status"
+              required
+              className={cn(
+                "w-full p-2 border border-border-divider rounded bg-background",
+                !!errors.status && "border-border-error"
+              )}
+            >
+              <option value="">--Select Status--</option>
+              {STATUS_LIST.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            {!!errors.status && (
+              <p className="text-sm text-error mt-1">{errors.status}</p>
+            )}
+          </div>
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="company" className="mb-2 text-sm font-medium">
+              Notes:
+            </label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              name="notes"
+              id="notes"
+              className="w-full p-2 border border-border-divider rounded bg-background"
+            ></textarea>
+          </div>
 
-        {message && <p className="text-sm text-center mt-2">{message}</p>}
-      </form>
+          <div className="flex gap-2 justify-between w-full">
+            <button
+              type="submit"
+              className="flex-1 bg-primary hover:bg-primary-dark"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
+
+            <button
+              type="button"
+              className="flex-1 bg-border-focus hover:bg-text-secondary w-full"
+              onClick={() => router.push("/")}
+            >
+              Cancel
+            </button>
+          </div>
+
+          {message && <p className="text-sm text-center mt-2">{message}</p>}
+        </form>
+      </div>
     </div>
   );
 }
