@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
+import Navbar from "./components/Navbar";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -18,7 +19,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Job Application Tracker",
+  title: "Job Applications Tracker",
   description: "Track your job search journey with clarity and growth",
 };
 
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.variable} ${inter.variable} antialiased`}>
+        <Navbar />
         {children}
         <Analytics />
         <SpeedInsights />

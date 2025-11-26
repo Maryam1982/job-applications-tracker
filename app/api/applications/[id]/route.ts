@@ -1,13 +1,19 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { NextRequest } from "next/server";
+import { getUserId } from "@/lib/auth/getUserId";
 
 // PATCH: edit an application
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const updates = await request.json();
   const { id } = await params;
+  const updates = await request.json();
+
+  const userId = await getUserId();
+  if (!userId) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   if (!updates || Object.keys(updates).length === 0) {
     return Response.json({ error: "No data provided" }, { status: 400 });
@@ -26,6 +32,7 @@ export async function PATCH(
       .from("job_applications")
       .update(payload)
       .eq("id", id)
+      .eq("user_id", userId) //  IMPORTANT: auth-bound update
       .select()
       .single();
 
@@ -41,7 +48,7 @@ export async function PATCH(
 
     if (!data) {
       return Response.json(
-        { message: "Application not found" },
+        { message: "Application not found or unauthorized" },
         { status: 404 }
       );
     }
@@ -57,37 +64,44 @@ export async function PATCH(
   }
 }
 
-//DELETE: delete an application
+// DELETE: delete an application
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
+  const userId = await getUserId();
+
+  if (!userId) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!id) {
+    return Response.json({ error: "ID is required" }, { status: 400 });
+  }
+
   try {
-    const { id } = await params;
-
-    if (!id) {
-      return Response.json({ error: "ID is required" }, { status: 400 });
-    }
-
     const { data, error } = await supabaseAdmin
       .from("job_applications")
       .delete()
       .eq("id", id)
-      .select();
+      .eq("user_id", userId) //  IMPORTANT: only delete user's own items
+      .select()
+      .single();
 
     if (error) {
       return Response.json({ error: error.message }, { status: 400 });
     }
 
-    if (!data || data.length === 0) {
+    if (!data) {
       return Response.json(
-        { message: "No application found with the given ID." },
+        { message: "Application not found or unauthorized." },
         { status: 404 }
       );
     }
 
     return Response.json(
-      { message: "Application deleted successfully.", deleted: data[0] },
+      { message: "Application deleted successfully.", deleted: data },
       { status: 200 }
     );
   } catch (err) {

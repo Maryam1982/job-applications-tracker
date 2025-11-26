@@ -1,12 +1,22 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { NextRequest } from "next/server";
 import { ApplicationRow } from "@/app/types";
+import { getUserId } from "@/lib/auth/getUserId";
 
-//GET: fetch all applications
+// ---------------------------------------------
+// GET: fetch all applications for the logged-in user
+// ---------------------------------------------
 export async function GET() {
+  const user_id = await getUserId();
+
+  if (!user_id) {
+    return Response.json({ error: "User not authenticated" }, { status: 401 });
+  }
+
   const { data, error } = await supabaseAdmin
     .from("job_applications")
     .select("*")
+    .eq("user_id", user_id) // filter by owner
     .order("id", { ascending: false });
 
   if (error) {
@@ -16,8 +26,16 @@ export async function GET() {
   return Response.json(data as ApplicationRow[], { status: 200 });
 }
 
-//POST: add a new application
+// ---------------------------------------------
+// POST: add a new application (belongs to the logged-in user)
+// ---------------------------------------------
 export async function POST(request: NextRequest) {
+  const user_id = await getUserId();
+
+  if (!user_id) {
+    return Response.json({ error: "User not authenticated" }, { status: 401 });
+  }
+
   const body = await request.json();
 
   const company_name = body.company_name ?? body.company;
@@ -39,6 +57,7 @@ export async function POST(request: NextRequest) {
     status,
     application_date,
     notes,
+    user_id, // attach owner
   };
 
   const { data, error } = await supabaseAdmin

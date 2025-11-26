@@ -1,10 +1,21 @@
+import { redirect } from "next/navigation";
 import SearchCoordinator from "./components/SearchCoordinator";
-import { getAllApplications } from "@/lib/api";
+import { getUserServer } from "@/lib/auth/getUserServer";
+import { getServerAdapter } from "@/lib/adapters";
 
 export default async function Home() {
+  const user = await getUserServer();
+  const source: "db" | "guest" = user ? "db" : "guest";
+
+  if (!user) {
+    redirect("/guest");
+    return null;
+  }
   let applications;
+
   try {
-    applications = await getAllApplications();
+    const adapter = await getServerAdapter();
+    applications = await adapter.getAll();
   } catch (error) {
     const message =
       error instanceof Error
@@ -14,11 +25,8 @@ export default async function Home() {
   }
   return (
     <main className="max-w-3xl mx-auto p-6">
-      <h1 className="text-center text-2xl font-semibold mb-6">
-        Job Applications Tracker
-      </h1>
       <div className="pt-6">
-        <SearchCoordinator applications={applications} />
+        <SearchCoordinator applications={applications} source={source} />
       </div>
     </main>
   );

@@ -1,6 +1,6 @@
-import { getApplication } from "@/lib/api";
 import EditClient from "./EditClient";
 import { Application } from "@/app/types";
+import { getServerAdapter } from "@/lib/adapters";
 
 export default async function EditPage({
   params,
@@ -9,14 +9,22 @@ export default async function EditPage({
 }) {
   const { id } = await params;
 
-  let application: Application | null = null;
+  // Determine source (for routing + client logic)
+  const { getUserServer } = await import("@/lib/auth/getUserServer");
+  const user = await getUserServer();
+  const source: "db" | "guest" = user ? "db" : "guest";
+
+  let application: Application | null | undefined = null;
 
   try {
-    application = await getApplication(id);
+    // If user is guest → this will THROW (correct behavior)
+    // If user is authenticated → server adapter loads from DB
+    const adapter = await getServerAdapter();
+    application = await adapter.getById(id);
   } catch (error) {
     console.error("Error fetching application:", error);
-    return <div>Error loading application.</div>;
+    // For guests we expect null — EditClient will load from localStorage
   }
 
-  return <EditClient id={id} initialData={application} />;
+  return <EditClient id={id} initialData={application} source={source} />;
 }
