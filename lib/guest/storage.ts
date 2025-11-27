@@ -116,3 +116,18 @@ export function deleteAll(): void {
     console.warn("Failed to clear guest applications.");
   }
 }
+
+export function hasGuestData(): boolean {
+  if (typeof window === "undefined") return false; // SSR safety
+
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length > 0;
+  } catch {
+    console.warn("Failed to check local storage for guest data.");
+    return false;
+  }
+}

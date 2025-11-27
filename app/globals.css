@@ -5,6 +5,7 @@
   --color-primary: var(--color-primary);
   --color-secondry: var(--color-secondry);
   --color-secondry-dark: var(--color-secondry-dark);
+  --color-secondry-darker: var(--color-secondry-darker);
   --color-primary-light: var(--color-primary-light);
   --color-primary-dark: var(--color-primary-dark);
   --color-background: var(--color-background);
@@ -50,7 +51,7 @@ h6 {
 
 button {
   color: #fff;
-  border: none;
+  /* border: none; */
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   transition: background-color 0.2s ease;
