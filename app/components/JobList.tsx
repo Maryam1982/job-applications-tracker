@@ -44,7 +44,7 @@ export default function JobList({ applications, source }: Props) {
           key={app.id}
           application={app}
           source={source}
-          onDeleted={handleDeleted}
+          onDeleted={source === "guest" ? handleDeleted : undefined}
         />
       ))}
     </div>
