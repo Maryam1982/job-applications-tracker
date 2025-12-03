@@ -1,6 +1,8 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
@@ -32,7 +34,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         <Navbar />
-        {children}
+        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
         <Analytics />
         <SpeedInsights />
       </body>
