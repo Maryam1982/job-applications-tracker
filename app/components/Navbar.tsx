@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { hasGuestData } from "@/lib/guest/storage";
 import { syncGuestToDatabase } from "@/lib/guest/sync";
@@ -15,8 +15,11 @@ export default function Navbar() {
   const [user, setUser] = useState<User | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
-  const router = useRouter();
 
+  const router = useRouter();
+  const pathname = usePathname(); // <-- ACTIVE ROUTE
+
+  // Fetch user
   useEffect(() => {
     let mounted = true;
 
@@ -71,8 +74,6 @@ export default function Navbar() {
     try {
       setIsSyncing(true);
       await syncGuestToDatabase();
-
-      // Refresh navbar state — guest data is now gone
       window.location.reload();
     } catch (err) {
       console.error("Sync failed", err);
@@ -82,28 +83,49 @@ export default function Navbar() {
     }
   }
 
+  // Active-link styling
+  const isDashboard = pathname === "/dashboard";
+
   return (
     <nav className="w-full border-b border-border-divider p-4 flex justify-between items-center">
-      <div className="font-bold text-lg">Job Applications Tracker</div>
+      {/* LEFT — Logo */}
+      <Link href="/" className="font-bold text-lg hover:text-primary">
+        Job Applications Tracker
+      </Link>
 
-      <div className="flex gap-4">
+      {/* RIGHT SECTION */}
+      <div className="flex items-center gap-6">
         {loading ? null : user ? (
           <>
-            <div className="flex flex-row-reverse gap-4">
+            {/* Dashboard Link with Active Styling */}
+            <Link
+              href="/dashboard"
+              className={`text-sm font-medium transition-colors ${
+                isDashboard
+                  ? "text-primary font-semibold"
+                  : "hover:text-primary"
+              }`}
+            >
+              Dashboard
+            </Link>
+
+            {/* Button Group */}
+            <div className="flex gap-4">
+              {hasGuestData() && (
+                <button
+                  onClick={handleSync}
+                  className="px-4 py-2 bg-secondry text-white rounded hover:bg-secondry-darker"
+                >
+                  {isSyncing ? "Syncing..." : "Sync Local Data"}
+                </button>
+              )}
+
               <button
                 onClick={handleSignOut}
                 className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark"
               >
                 Logout
               </button>
-              {hasGuestData() && (
-                <button
-                  className="px-4 py-2 bg-secondry text-white rounded hover:bg-secondry-darker"
-                  onClick={handleSync}
-                >
-                  {isSyncing ? "Syncing..." : "Sync Local Data"}
-                </button>
-              )}
             </div>
           </>
         ) : (

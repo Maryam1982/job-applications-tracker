@@ -5,6 +5,8 @@ export interface Application {
   status: string;
   applied_on: string;
   notes?: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface ApplicationRow {
@@ -14,7 +16,12 @@ export interface ApplicationRow {
   status: string;
   application_date: string; // e.g. "2025-11-10" from the DB
   notes?: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
-export type ApplicationCreate = Omit<Application, "id">;
+export type ApplicationCreate = Omit<
+  Application,
+  "id" | "created_at" | "updated_at"
+>;
 export type ApplicationUpdate = Partial<ApplicationCreate>;
