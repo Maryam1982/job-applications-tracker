@@ -61,7 +61,13 @@ export async function createApplication(
     const applications = await load();
 
     const id = crypto.randomUUID();
-    const application: Application = { id, ...data };
+    const now = new Date().toISOString();
+    const application: Application = {
+      id,
+      ...data,
+      created_at: now,
+      updated_at: now,
+    };
 
     applications.push(application);
     save(applications);
