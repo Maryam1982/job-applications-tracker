@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signInAction } from "@/lib/auth/actions";
 
 export default function LoginPage() {
@@ -17,6 +17,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
 
   const [isPending, startTransition] = useTransition();
+  const searchParams = useSearchParams();
+  const redirectedFrom = searchParams.get("redirectedFrom") || "/";
 
   async function handleSubmit() {
     // ---- CLIENT-SIDE VALIDATION ----
@@ -49,7 +51,7 @@ export default function LoginPage() {
         return;
       }
 
-      router.push("/");
+      router.push(redirectedFrom);
       router.refresh();
       window.dispatchEvent(new Event("auth-changed"));
     });
