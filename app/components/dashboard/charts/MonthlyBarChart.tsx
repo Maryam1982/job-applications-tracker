@@ -28,7 +28,9 @@ export default function MonthlyBarChart({ data }: { data: MonthlyData[] }) {
 
   return (
     <div className="aspect-2/1">
-      <h2 className="text-sm chart-title mb-2">Applications per Month</h2>
+      <h2 className="text-base font-semibold tracking-tight chart-title mb-4">
+        Applications per Month
+      </h2>
 
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
@@ -36,8 +38,9 @@ export default function MonthlyBarChart({ data }: { data: MonthlyData[] }) {
           <XAxis
             dataKey="month"
             tickFormatter={(value: string) => value.split(" ")[0]}
+            tick={{ fontSize: 12 }}
           />
-          <YAxis allowDecimals={false} />
+          <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
           <Tooltip />
           <Bar dataKey="applications">
             {data.map((_, index) => (

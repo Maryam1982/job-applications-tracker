@@ -9,7 +9,6 @@ export function generateMonthlyStatusBuckets(
   apps: { applied_on: string; status: string }[]
 ): MonthlyStatusRow[] {
   const buckets = new Map<string, Record<string, number>>();
-  console.log("apps received from the backend:", apps);
 
   for (const app of apps) {
     const date = new Date(app.applied_on);
@@ -23,8 +22,6 @@ export function generateMonthlyStatusBuckets(
     const counts = buckets.get(month)!;
     counts[status] = (counts[status] ?? 0) + 1;
   }
-
-  console.log("buckets:", buckets);
 
   return Array.from(
     buckets,
