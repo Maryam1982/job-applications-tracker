@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import { LayoutDashboard } from "lucide-react";
 import { hasGuestData } from "@/lib/guest/storage";
 import { syncGuestToDatabase } from "@/lib/guest/sync";
 
@@ -94,7 +95,7 @@ export default function Navbar() {
       </Link>
 
       {/* RIGHT SECTION */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-8">
         {loading ? null : user ? (
           <>
             {/* Dashboard Link with Active Styling */}
@@ -106,7 +107,10 @@ export default function Navbar() {
                   : "hover:text-primary"
               }`}
             >
-              Dashboard
+              <div className="flex items-center gap-2 ">
+                <LayoutDashboard className="w-6 h-6 text-current" />
+                Dashboard
+              </div>
             </Link>
 
             {/* Button Group */}

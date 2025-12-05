@@ -22,12 +22,14 @@ export function MonthlyStatusBarChart({ data }: { data: MonthlyStatusRow[] }) {
   );
 
   return (
-    <div className="w-full aspect-2/1 p-4 rounded-2xl bg-surface shadow">
-      <h2 className="text-sm chart-title mb-2">Monthly Status Breakdown</h2>
+    <div className="w-full aspect-2/1 p-6 rounded-2xl bg-surface shadow hover:shadow-lg transition-shadow duration-200">
+      <h2 className="text-base font-semibold tracking-tight chart-title mb-4">
+        Monthly Status Breakdown
+      </h2>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data}>
-          <XAxis dataKey="month" />
-          <YAxis />
+          <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+          <YAxis tick={{ fontSize: 12 }} />
           <Tooltip />
           <Legend />
           {statusKeys.map((status) => (

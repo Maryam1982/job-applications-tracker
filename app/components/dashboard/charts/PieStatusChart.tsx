@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 
-import { CHART_COLORS } from "@/app/constants/colors";
+import { getStatusColor } from "@/lib/statusColors";
 
 interface StatusData {
   status: string;
@@ -34,8 +34,10 @@ export default function PieStatusChart({ data }: { data: StatusData[] }) {
   }));
 
   return (
-    <div className="w-full aspect-2/1 p-4 rounded-2xl bg-surface shadow">
-      <h2 className="text-sm chart-title mb-2">Total Status Breakdown</h2>
+    <div className="w-full aspect-2/1 p-6 rounded-2xl bg-surface shadow hover:shadow-lg transition-shadow duration-200">
+      <h2 className="text-base font-semibold tracking-tight chart-title mb-4">
+        Total Status Breakdown
+      </h2>
 
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
@@ -48,10 +50,10 @@ export default function PieStatusChart({ data }: { data: StatusData[] }) {
             outerRadius={80}
             label
           >
-            {data.map((_, index) => (
+            {data.map((dataItem, index) => (
               <Cell
                 key={`cell-${index}`}
-                fill={CHART_COLORS.pie[index % CHART_COLORS.pie.length]}
+                fill={getStatusColor(dataItem.status)}
               />
             ))}
           </Pie>

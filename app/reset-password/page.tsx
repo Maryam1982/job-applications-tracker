@@ -39,7 +39,6 @@ export default function ResetPasswordPage() {
 
       if (error) {
         const message = error.message?.toLowerCase() || "";
-        console.log(message);
 
         if (
           message.includes("expired") ||
