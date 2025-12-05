@@ -17,7 +17,6 @@ export default async function DashboardPage() {
 
   return (
     <div className="p-6 md:p-8 space-y-6">
-      {/* TOP GRID */}
       <div
         className="
           grid gap-6
@@ -26,28 +25,23 @@ export default async function DashboardPage() {
           
         "
       >
-        {/* Left Column — Top Card */}
         <div className="rounded-xl p-6 bg-surface shadow hover:shadow-lg transition-shadow duration-200">
           <TotalApplications />
         </div>
 
-        {/* Right Column — Big Chart spanning 2 rows */}
         <div className="rounded-xl p-6 bg-surface shadow md:col-span-2 md:row-span-2 aspect-3/1 hover:shadow-lg transition-shadow duration-200">
           <MonthlyBarChart data={monthlyApplications} />
         </div>
 
-        {/* Left Column — Bottom Card */}
         <div className="rounded-xl p-6 bg-surface shadow hover:shadow-lg transition-shadow duration-200">
           <LastUpdatedApplication />
         </div>
       </div>
 
-      {/* MIDDLE — Weekly Linechart full width */}
       <div className="rounded-xl p-6 bg-surface shadow aspect-3/1 hover:shadow-lg transition-shadow duration-200">
         <WeeklyLineChart data={weeklyLineChart} />
       </div>
 
-      {/* BOTTOM — two charts side-by-side */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
         <PieStatusChart data={statusBreakdown} />
 
