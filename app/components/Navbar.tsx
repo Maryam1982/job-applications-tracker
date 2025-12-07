@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, Folder } from "lucide-react";
 import { hasGuestData } from "@/lib/guest/storage";
 import { syncGuestToDatabase } from "@/lib/guest/sync";
 
@@ -86,9 +86,10 @@ export default function Navbar() {
 
   // Active-link styling
   const isDashboard = pathname === "/dashboard";
+  const isApplications = pathname === "/applications";
 
   return (
-    <nav className="w-full border-b border-border-divider p-4 flex justify-between items-center">
+    <nav className="w-full border-b border-border-divider p-4 flex flex-col sm:flex-row justify-between items-center">
       {/* LEFT — Logo */}
       <Link href="/" className="font-bold text-lg hover:text-primary">
         Job Applications Tracker
@@ -98,7 +99,6 @@ export default function Navbar() {
       <div className="flex items-center gap-8">
         {loading ? null : user ? (
           <>
-            {/* Dashboard Link with Active Styling */}
             <Link
               href="/dashboard"
               className={`text-sm font-medium transition-colors ${
@@ -110,6 +110,20 @@ export default function Navbar() {
               <div className="flex items-center gap-2 ">
                 <LayoutDashboard className="w-6 h-6 text-current" />
                 Dashboard
+              </div>
+            </Link>
+
+            <Link
+              href="/applications"
+              className={`text-sm font-medium transition-colors ${
+                isApplications
+                  ? "text-primary font-semibold"
+                  : "hover:text-primary"
+              }`}
+            >
+              <div className="flex items-center gap-2 ">
+                <Folder className="w-6 h-6 text-current" />
+                Applications
               </div>
             </Link>
 
