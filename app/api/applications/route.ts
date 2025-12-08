@@ -43,6 +43,8 @@ export async function POST(request: NextRequest) {
   const status = body.status;
   const application_date = body.application_date ?? body.applied_on;
   const notes = body.notes ?? null;
+  const contract_type = body.contract_type ?? null;
+  const location = body.location ?? null;
 
   if (!company_name || !job_title || !status || !application_date) {
     return Response.json(
@@ -58,6 +60,8 @@ export async function POST(request: NextRequest) {
     application_date,
     notes,
     user_id, // attach owner
+    contract_type,
+    location,
   };
 
   const { data, error } = await supabaseAdmin

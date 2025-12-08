@@ -56,7 +56,7 @@ export default function EditClient({
     try {
       const adapter = await getClientAdapter();
       await adapter.update(id, updated);
-      router.push(buildRoute("/"));
+      router.push(buildRoute("/applications"));
     } catch (error) {
       console.error("Update failed:", error);
       alert("Error updating application");

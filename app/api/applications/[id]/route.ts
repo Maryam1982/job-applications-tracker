@@ -25,6 +25,8 @@ export async function PATCH(
     status: updates.status,
     application_date: updates.applied_on ?? updates.application_date,
     notes: updates.notes ?? null,
+    contract_type: updates.contract_type ?? null,
+    location: updates.location ?? null,
   };
 
   try {

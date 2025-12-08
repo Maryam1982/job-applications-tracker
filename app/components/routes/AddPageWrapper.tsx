@@ -16,7 +16,7 @@ export default function AddPageWrapper() {
       await adapter.create(data);
 
       // Redirect to appropriate home ("/" or "/guest")
-      router.push(buildRoute("/"));
+      router.push(buildRoute("/applications"));
     } catch (err) {
       console.error("Create application failed:", err);
       alert("Error adding application");
