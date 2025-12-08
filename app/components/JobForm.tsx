@@ -30,6 +30,10 @@ export default function JobForm<
   });
 
   const [notes, setNotes] = useState(initialData?.notes ?? "");
+  const [contractType, setContractType] = useState(
+    initialData?.contract_type ?? ""
+  );
+  const [location, setLocation] = useState(initialData?.location ?? "");
   const [errors, setErrors] = useState<ErrorState>({
     company: "",
     position: "",
@@ -68,6 +72,8 @@ export default function JobForm<
         status,
         applied_on: appliedOn,
         notes,
+        contract_type: contractType,
+        location: location,
         ...(initialData && "id" in initialData ? { id: initialData.id } : {}),
       } as T;
 
@@ -210,6 +216,42 @@ export default function JobForm<
             {errors.status && (
               <p className="text-sm text-error mt-1">{errors.status}</p>
             )}
+          </div>
+
+          {/* Contract Type */}
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="contract_type" className="mb-2 text-sm font-medium">
+              Contract Type:
+            </label>
+            <input
+              id="contract_type"
+              name="contract_type"
+              type="text"
+              value={contractType}
+              placeholder="contract type"
+              onChange={(e) => {
+                setContractType(e.target.value);
+              }}
+              className="w-full p-2 border border-border-divider rounded bg-background"
+            />
+          </div>
+
+          {/* Location */}
+          <div className="w-full flex flex-col mb-4">
+            <label htmlFor="location" className="mb-2 text-sm font-medium">
+              Location:
+            </label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              value={location}
+              placeholder="location"
+              onChange={(e) => {
+                setLocation(e.target.value);
+              }}
+              className="w-full p-2 border border-border-divider rounded bg-background"
+            />
           </div>
 
           {/* Notes */}

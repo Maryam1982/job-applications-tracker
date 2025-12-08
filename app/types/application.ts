@@ -7,6 +7,8 @@ export interface Application {
   notes?: string;
   created_at: string;
   updated_at: string;
+  contract_type?: string;
+  location?: string;
 }
 
 export interface ApplicationRow {
@@ -18,6 +20,8 @@ export interface ApplicationRow {
   notes?: string | null;
   created_at: string;
   updated_at: string;
+  contract_type?: string;
+  location?: string;
 }
 
 export type ApplicationCreate = Omit<
