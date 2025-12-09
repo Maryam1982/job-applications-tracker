@@ -281,7 +281,7 @@ export default function JobForm<
             <button
               type="button"
               className="flex-1 bg-border-focus hover:bg-text-secondary"
-              onClick={() => router.push("/")}
+              onClick={() => router.push("/applications")}
             >
               Cancel
             </button>
