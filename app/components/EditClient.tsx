@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import JobForm from "@/app/components/JobForm";
 import { ApplicationUpdate } from "@/app/types";
 import { getClientAdapter } from "@/lib/adapters";
@@ -20,6 +20,9 @@ export default function EditClient({
 }: EditClientProps) {
   const router = useRouter();
   const { buildRoute } = useBuildRoute();
+
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get("from") ?? "/applications";
 
   const [data, setData] = useState<ApplicationUpdate | null | undefined>(
     initialData
@@ -56,7 +59,7 @@ export default function EditClient({
     try {
       const adapter = await getClientAdapter();
       await adapter.update(id, updated);
-      router.push(buildRoute("/applications"));
+      router.push(buildRoute(returnTo));
     } catch (error) {
       console.error("Update failed:", error);
       alert("Error updating application");

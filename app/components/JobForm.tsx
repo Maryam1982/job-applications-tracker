@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { ApplicationCreate, ApplicationUpdate } from "../types";
 import { STATUS_LIST } from "../constants";
-import { useRouter } from "next/navigation";
+
+import { useBuildRoute } from "@/lib/routes/useBuildRoute";
 
 interface JobFormProps<T> {
   onSubmit: (data: T) => Promise<void>;
@@ -44,6 +46,13 @@ export default function JobForm<
   const [message, setMessage] = useState("");
 
   const router = useRouter();
+  const { buildRoute } = useBuildRoute();
+
+  {
+    /*TODO:We need to refactor the logic for returnTo maybe a hook */
+  }
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get("from") ?? "/applications";
 
   function validate() {
     const newErrors: ErrorState = {
@@ -281,7 +290,7 @@ export default function JobForm<
             <button
               type="button"
               className="flex-1 bg-border-focus hover:bg-text-secondary"
-              onClick={() => router.push("/applications")}
+              onClick={() => router.push(buildRoute(returnTo))}
             >
               Cancel
             </button>

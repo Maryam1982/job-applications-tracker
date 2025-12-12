@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SearchCoordinator from "../components/SearchCoordinator";
-import { Application } from "../types";
+import SearchCoordinator from "@/app/components/SearchCoordinator";
+import { Application } from "@/app/types";
 import { getClientAdapter } from "@/lib/adapters"; // runtime factory (client-safe)
 
 export default function GuestPage() {

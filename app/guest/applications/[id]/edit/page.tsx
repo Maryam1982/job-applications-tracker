@@ -1,4 +1,4 @@
-import EditClient from "@/app/edit/[id]/EditClient";
+import EditClient from "@/app/components/EditClient";
 
 export default async function GuestEditPage({
   params,
