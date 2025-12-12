@@ -23,7 +23,7 @@ export default async function LandingPage() {
 
           {!user && (
             <Link
-              href="/guest"
+              href="/guest/applications"
               className="secondry transition  hover:[text-shadow:0.4px_0_currentColor]"
             >
               Continue as Guest

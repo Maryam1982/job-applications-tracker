@@ -53,7 +53,7 @@ export default function SelectBar({
           className="w-full border border-transparent bg-surface"
         />
 
-        <Link href={buildRoute("/add")}>
+        <Link href={buildRoute("/applications/add")}>
           <button className="bg-primary hover:bg-primary-dark px-3 py-2 rounded-md w-full whitespace-nowrap">
             Add Application
           </button>

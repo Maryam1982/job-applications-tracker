@@ -58,7 +58,7 @@ export default function SearchCoordinator({ applications, source }: Props) {
 
   return (
     <div>
-      <div className="sticky top-0 p-2 bg-border-divider rounded-sm">
+      <div className="sticky top-0 p-2 bg-border-divider rounded-sm z-20">
         <SelectBar
           applications={applications}
           searchTerm={searchTerm}

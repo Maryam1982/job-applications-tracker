@@ -46,6 +46,8 @@ export async function getApplicationById(
 ): Promise<Application | undefined> {
   try {
     const applications = await load();
+    console.log("from lib -> guest -> storage.ts applications:", applications);
+    console.log("passed id:", id);
     const result = applications.find((item) => item.id === id);
     return result;
   } catch {

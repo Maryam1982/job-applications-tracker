@@ -1,4 +1,4 @@
-import EditClient from "./EditClient";
+import EditClient from "../../../components/EditClient";
 import { Application } from "@/app/types";
 import { getServerAdapter } from "@/lib/adapters";
 
