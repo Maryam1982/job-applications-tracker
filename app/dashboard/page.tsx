@@ -38,7 +38,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <div className="rounded-xl p-6 bg-surface shadow aspect-3/1 hover:shadow-lg transition-shadow duration-200">
+      <div className="rounded-xl p-6 bg-surface shadow h-[clamp(240px,28vw,360px)] hover:shadow-lg transition-shadow duration-200 ">
         <WeeklyLineChart data={weeklyLineChart} />
       </div>
 
