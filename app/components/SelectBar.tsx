@@ -10,7 +10,7 @@ import {
   DateFilter,
 } from "../constants";
 import { Application } from "../types";
-import { useBuildRoute } from "@/lib/routes/useBuildRoute";
+import { useBuildRoute } from "@/app/hooks/useBuildRoute";
 
 type SelectBarProps = {
   applications: Application[];

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import JobForm from "@/app/components/JobForm";
 import { getClientAdapter } from "@/lib/adapters"; // runtime factory (client-safe)
-import { useBuildRoute } from "@/lib/routes/useBuildRoute";
+import { useBuildRoute } from "@/app/hooks/useBuildRoute";
 import type { ApplicationCreate } from "@/app/types";
 
 export default function AddPageWrapper() {
