@@ -9,7 +9,7 @@ import Field from "@/app/components/ui/Field";
 import { statusColorMap } from "@/lib/statusColors";
 import { getClientAdapter } from "@/lib/adapters";
 
-import { useBuildRoute } from "@/lib/routes/useBuildRoute";
+import { useBuildRoute } from "@/app/hooks/useBuildRoute";
 import { Application } from "@/app/types";
 
 export default function GuestApplicationDetailPage() {

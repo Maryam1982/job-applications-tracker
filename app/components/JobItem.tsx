@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Application } from "../types";
 import { statusColorMap } from "@/lib/statusColors";
 import { getClientAdapter } from "@/lib/adapters";
-import { useBuildRoute } from "@/lib/routes/useBuildRoute";
+import { useBuildRoute } from "@/app/hooks/useBuildRoute";
 
 interface Props {
   application: Application;

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { ApplicationCreate, ApplicationUpdate } from "../types";
 import { STATUS_LIST } from "../constants";
 
-import { useBuildRoute } from "@/lib/routes/useBuildRoute";
+import { useBuildRoute } from "@/app/hooks/useBuildRoute";
 
 interface JobFormProps<T> {
   onSubmit: (data: T) => Promise<void>;

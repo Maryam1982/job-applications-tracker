@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import JobForm from "@/app/components/JobForm";
 import { ApplicationUpdate } from "@/app/types";
 import { getClientAdapter } from "@/lib/adapters";
-import { useBuildRoute } from "@/lib/routes/useBuildRoute";
+import { useBuildRoute } from "@/app/hooks/useBuildRoute";
 
 interface EditClientProps {
   id: string;
