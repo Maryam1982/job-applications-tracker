@@ -12,6 +12,7 @@ import {
 } from "recharts";
 
 import { CHART_COLORS } from "@/app/constants/colors";
+import { useIsMobile } from "@/app/hooks/useIsMobile";
 
 interface MonthlyData {
   month: string;
@@ -19,6 +20,7 @@ interface MonthlyData {
 }
 
 export default function MonthlyBarChart({ data }: { data: MonthlyData[] }) {
+  const isMobile = useIsMobile();
   if (!data || data.length === 0)
     return (
       <div className=" flex items-center justify-center text-gray-500">
@@ -40,7 +42,11 @@ export default function MonthlyBarChart({ data }: { data: MonthlyData[] }) {
             tickFormatter={(value: string) => value.split(" ")[0]}
             tick={{ fontSize: 12 }}
           />
-          <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
+          <YAxis
+            allowDecimals={false}
+            tick={{ fontSize: 12 }}
+            width={isMobile ? 15 : 32}
+          />
           <Tooltip />
           <Bar dataKey="applications">
             {data.map((_, index) => (
