@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navigation/Navbar";
 import "./globals.css";
 
 const poppins = Poppins({
