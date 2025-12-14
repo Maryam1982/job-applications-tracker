@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { LayoutDashboard, Folder } from "lucide-react";
-import { hasGuestData } from "@/lib/guest/storage";
 import { syncGuestToDatabase } from "@/lib/guest/sync";
+import MobileMenuButton from "./MobileMenuButton";
+import NavLinks from "./NavLinks";
+import AuthActions from "./AuthActions";
 
 type User = {
   id: string;
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [user, setUser] = useState<User | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname(); // <-- ACTIVE ROUTE
@@ -95,67 +97,34 @@ export default function Navbar() {
         Job Applications Tracker
       </Link>
 
-      {/* RIGHT SECTION */}
-      <div className="flex items-center gap-8">
-        {loading ? null : user ? (
-          <>
-            <Link
-              href="/dashboard"
-              className={`text-sm font-medium transition-colors ${
-                isDashboard
-                  ? "text-primary font-semibold"
-                  : "hover:text-primary"
-              }`}
-            >
-              <div className="flex items-center gap-2 ">
-                <LayoutDashboard className="w-6 h-6 text-current" />
-                Dashboard
-              </div>
-            </Link>
+      {/* MOBILE MENU BUTTON (controller) */}
+      <MobileMenuButton
+        open={mobileOpen}
+        onToggle={() => setMobileOpen((prev) => !prev)}
+      />
 
-            <Link
-              href="/applications"
-              className={`text-sm font-medium transition-colors ${
-                isApplications
-                  ? "text-primary font-semibold"
-                  : "hover:text-primary"
-              }`}
-            >
-              <div className="flex items-center gap-2 ">
-                <Folder className="w-6 h-6 text-current" />
-                Applications
-              </div>
-            </Link>
-
-            {/* Button Group */}
-            <div className="flex gap-4">
-              {hasGuestData() && (
-                <button
-                  onClick={handleSync}
-                  className="px-4 py-2 bg-secondry text-white rounded hover:bg-secondry-darker"
-                >
-                  {isSyncing ? "Syncing..." : "Sync Local Data"}
-                </button>
-              )}
-
-              <button
-                onClick={handleSignOut}
-                className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark"
-              >
-                Logout
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <Link href="/login" className="text-primary">
-              Login
-            </Link>
-            <Link href="/signup" className="text-primary">
-              Sign Up
-            </Link>
-          </>
+      {/* MENU CONTENT (controlled) */}
+      <div
+        className={`flex flex-col sm:flex-row items-center gap-8 ${
+          mobileOpen ? "flex" : "hidden sm:flex"
+        }`}
+      >
+        {!loading && user && (
+          <NavLinks
+            isDashboard={isDashboard}
+            isApplications={isApplications}
+            onNavigate={() => setMobileOpen(false)}
+          />
         )}
+
+        <AuthActions
+          loading={loading}
+          user={user}
+          isSyncing={isSyncing}
+          onSync={handleSync}
+          onSignOut={handleSignOut}
+          onNavigate={() => setMobileOpen(false)}
+        />
       </div>
     </nav>
   );
