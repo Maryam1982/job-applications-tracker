@@ -19,7 +19,12 @@ export default function JobItem({ application, onDeleted }: Props) {
   const router = useRouter();
   const { buildRoute } = useBuildRoute();
 
-  async function handleDelete(id: string) {
+  async function handleDelete(
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: string
+  ) {
+    e.stopPropagation();
+
     const confirmed = confirm(
       "Are you sure you want to delete this application?"
     );
@@ -46,22 +51,23 @@ export default function JobItem({ application, onDeleted }: Props) {
   const statusColor =
     statusColorMap[application.status] || "var(--color-text-secondary)";
 
+  function handleNavigate() {
+    router.push(`${buildRoute("/applications")}/${application.id}`);
+  }
+
   return (
     <article
+      role="button"
+      tabIndex={0}
+      onClick={handleNavigate}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") handleNavigate();
+      }}
       className="relative border border-border-divider p-4 rounded-md bg-surface
                  flex justify-between font-secondary transition-all duration-200
-                 hover:shadow-md hover:border-primary hover:-translate-y-0.5"
+                 hover:shadow-md hover:border-primary hover:-translate-y-0.5 cursor-pointer"
     >
-      {/* ✅ Stretched link: makes whole card clickable */}
-      <Link
-        href={`${buildRoute("/applications")}/${application.id}`}
-        aria-label={`View application ${application.company}`}
-        className="absolute inset-0 z-0"
-      >
-        <span className="sr-only">Open application {application.company}</span>
-      </Link>
-
-      {/* ✅ Left content (above overlay) */}
+      {/* Left content */}
       <div className="relative z-10">
         <h3 className="font-semibold">{application.company}</h3>
         <p>{application.position}</p>
@@ -72,7 +78,7 @@ export default function JobItem({ application, onDeleted }: Props) {
         </div>
       </div>
 
-      {/* ✅ Right content + actions (above overlay) */}
+      {/* Right content + actions */}
       <div className="relative z-10 flex flex-col items-end justify-between min-w-[90px] sm:min-w-0">
         <span style={{ color: statusColor }} className="font-medium">
           {application.status}
@@ -83,13 +89,14 @@ export default function JobItem({ application, onDeleted }: Props) {
             href={`${buildRoute(
               `/applications/${application.id}/edit`
             )}?from=/applications`}
+            onClick={(e) => e.stopPropagation()}
           >
             <button className="bg-secondry hover:bg-secondry-dark">Edit</button>
           </Link>
 
           <button
             className="bg-slate-400 hover:bg-red-400 disabled:opacity-50"
-            onClick={() => handleDelete(application.id)}
+            onClick={(e) => handleDelete(e, application.id)}
             disabled={deleting}
           >
             {deleting ? "Deleting…" : "Delete"}
