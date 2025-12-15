@@ -39,7 +39,10 @@ export default function AuthActions({
     <div className="flex gap-4">
       {hasGuestData() && (
         <button
-          onClick={onSync}
+          onClick={() => {
+            onSync();
+            onNavigate?.();
+          }}
           className="px-4 py-2 bg-secondry text-white rounded hover:bg-secondry-darker"
         >
           {isSyncing ? "Syncing..." : "Sync Local Data"}
@@ -47,7 +50,10 @@ export default function AuthActions({
       )}
 
       <button
-        onClick={onSignOut}
+        onClick={() => {
+          onSignOut();
+          onNavigate?.();
+        }}
         className="px-4 py-2 bg-primary text-white rounded hover:bg-primary-dark"
       >
         Logout
