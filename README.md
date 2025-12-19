@@ -1,255 +1,257 @@
-🗂️ Job Application Tracker
+# 🗂️ Job Application Tracker
 
-A clean and minimal web application to help users track their job applications — from submission to interviews — built with Next.js, Supabase, and PostgreSQL.
+A clean, production-oriented web application to help users track their job applications — from submission to interviews — built with **Next.js**, **Supabase**, and **PostgreSQL**.
 
-
----
-
-✨ Features
-
-Phase One
-
-➕ Add, ✏️ Edit, 🗑️ Delete, and 🔍 Search job applications
-
-⏰ Automatic timestamps for created and updated records
-
-💾 Data stored securely in Supabase (PostgreSQL)
-
-🧭 Simple and responsive interface built with Tailwind CSS
-
-
-Phase Two (Planned)
-
-🔽 Sorting, filtering, and pagination
-
-📊 Dashboard with charts and application insights
-
-👤 Recruiter contact management
-
-📎 Resume/document uploads
-
-🔐 Authentication and personal user accounts
-
-
+This project is part of my portfolio and focuses on real-world concerns such as authentication flows, data ownership, offline-friendly UX, and scalable frontend architecture.
 
 ---
 
-🧠 Tech Stack
+## ✨ Features & Roadmap
 
-Layer Technology
+### Phase One — Core Application (Completed)
 
-Frontend Next.js (React)
-Backend Supabase (PostgreSQL)
-Styling Tailwind CSS
-Deployment Vercel (planned)
-
-
+➕ Add, ✏️ Edit, 🗑️ Delete, and 🔍 Search job applications  
+⏰ Automatic timestamps for created records  
+💾 Local persistence for guest users (Local Storage)  
+🧭 Clean, responsive UI built with Tailwind CSS  
 
 ---
 
-🏗️ Architecture Overview
+### Phase Two — User Experience & Insights (Implemented)
 
-Next.js frontend communicates directly with Supabase via its client library.
-
-CRUD operations (Create, Read, Update, Delete) are handled securely through Supabase’s API.
-
-The structure follows a modular component design for scalability and readability.
-
-
-(A simple architecture diagram will be added soon.)
-
+🔐 Authentication and personal user accounts (Supabase Auth)  
+🔄 Sync local (guest) job applications to the server after login  
+📊 Dashboard with charts and application insights  
+🎨 Color-coded application statuses for better visual clarity  
 
 ---
 
-🗄️ Database Schema
+### Phase Three — Advanced Functionality (Planned)
 
-Table: applications
-
-Column Type Description
-
-| Column | Type | Description |
-|--------|------|-------------|
-| id | UUID | Primary key |
-| company | Text | Company name |
-| role | Text | Job title |
-| status | Text | Application status |
-| date_applied | Date | When the application was submitted |
-| job_link | Text | URL to the job posting |
-| notes | Text | Optional notes |
-| created_at | Timestamp | Auto-generated |
-| updated_at | Timestamp | Auto-updated |
-
-
+🔽 Sorting, filtering, and pagination  
+👤 Recruiter & contact management  
+📎 Resume / document uploads  
 
 ---
 
-⚙️ Installation & Setup
+## 🧠 Tech Stack
 
-# Clone the repository
-git clone https://github.com/<your-username>/job-application-tracker.git
+| Layer      | Technology                  |
+|-----------|-----------------------------|
+| Frontend  | Next.js (React, TypeScript) |
+| Backend   | Supabase (PostgreSQL)       |
+| Styling   | Tailwind CSS                |
+| Auth      | Supabase Auth               |
+| Storage  | Local Storage (guest mode)  |
+| Deploy   | Vercel (planned)            |
 
-# Navigate into the project
-cd job-application-tracker
+---
 
-# Install dependencies
+## 🏗️ Architecture Overview
+
+- The **Next.js frontend** communicates directly with Supabase via its client SDK  
+- Authenticated users store data securely in PostgreSQL  
+- Guest users can use the app without authentication via Local Storage  
+- Upon login, local job applications can be synced to the server  
+- Each server-side record is associated with a `user_id`  
+- Modular component structure designed for clarity and scalability  
+
+> A simple architecture diagram will be added soon.
+
+---
+
+## 🗄️ Database Schema
+
+### Table: `job_applications`
+
+| Column           | Type      | Description                               |
+|------------------|-----------|-------------------------------------------|
+| id               | UUID      | Primary key                               |
+| created_at       | Timestamp | Auto-generated creation time              |
+| job_title        | Text      | Job title                                 |
+| company_name     | Text      | Company name                              |
+| contract_type    | Text      | Full-time, Part-time, Freelance, etc.     |
+| location         | Text      | Job location                              |
+| application_date | Date      | Date the application was submitted        |
+| status           | Text      | Application status                        |
+| notes            | Text      | Optional notes                            |
+| user_id          | UUID      | Foreign key → authenticated user          |
+
+All database records are **user-owned** and only accessible within the authenticated session.
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+git clone https://github.com/Maryam1982/job-applications-tracker.git
+
+### 2️⃣ Navigate into the project
+cd job-applications-tracker
+
+### 3️⃣ Install dependencies
 npm install
 
-# Run the development server
+### 4️⃣ Run the development server
 npm run dev
 
-Create a .env.local file in the project root and add your Supabase credentials:
+### 5️⃣ Environment variables
+Create a .env.local file in the project root:
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 
-NEXT_PUBLIC_SUPABASE_URL=your-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-key
+### 6️⃣ Open the app
+Open your browser and navigate to:
+👉 http://localhost:3000
 
-Then open the app in your browser:
 
-> http://localhost:3000
+## 🚀 Usage
 
+### 👤 Guest Mode (No Login Required)
 
+- Users can immediately add job applications
 
+- Data is stored locally in the browser (Local Storage)
 
----
+- Full CRUD functionality is available
 
-🚀 Usage
+- Ideal for quick usage without registration
 
-Click “Add Application” to create a new record.
+### 🔐 Authenticated Mode
 
-View all applications in the main list.
+- Users can sign up or log in
 
-Use the search bar to quickly find jobs by company or role.
+- Successful login redirects to the landing page
 
-Edit or delete any record with a single click.
+- If local job applications exist, users can sync them to the server
 
+- All synced and future applications are stored securely in PostgreSQL
 
+- Dashboard and insights become available
 
----
+### 🔄 Local → Server Sync Logic
 
-🧩 Future Enhancements
+- Guest applications are stored locally using the same data structure
 
-User authentication (Supabase Auth)
+- After login, the app detects unsynced local entries
 
-Chart dashboard (applications per week, status breakdown)
+- Users can migrate local applications to their personal account
 
-Color-coded statuses
+After successful sync:
 
-Recruiter tracking with contacts table
+- Records are persisted server-side
 
-Document uploads (CV, cover letter)
+- Local copies are cleared to avoid duplication
 
-Smart reminders and insights
+This enables a seamless transition from anonymous usage to a personal account.
 
 
+## 🔐 Authentication Flow
 
----
+This project implements a secure authentication system using Supabase Auth, with privacy-safe UX messaging and clear user feedback.
 
-## 🔐 Authentication Flow (Login, Signup, Reset Password)
+### 1️⃣ Login
 
-This project implements a secure authentication system using **Supabase Auth**, with clear UX messaging, server-action validation, and privacy-safe error handling.
+#### Happy Path
 
----
+- Navigate to /login
 
-### **1. Login Flow**
+- Enter email and password
 
-#### ✅ Happy Path
-1. User navigates to **/login**  
-2. Enters email & password  
-3. Credentials are valid → user logs in  
-4. Redirects to the dashboard  
-5. Navbar updates via `auth-changed` event  
+- Authentication succeeds
 
-#### ❗ Error Handling
-If credentials are incorrect, Supabase returns a generic error.  
-The UI displays:
+- Redirect to landing page
 
-> **Invalid credentials. If you forgot your password, you can reset it.**
+- Authenticated UI and dashboard become available
 
-A **Reset Password** link is always available.
+#### Error Handling
 
----
+- Invalid credentials message
 
-### **2. Sign-Up Flow**
+- Reset Password link always available
 
-#### ✅ Happy Path
-1. User enters a *new* email + valid password  
-2. Supabase successfully creates the account  
-3. User sees:  
-   > **Account created! Please check your email to confirm.**  
-4. After 2 seconds, user is redirected to **Login**
+### 2️⃣ Sign-Up
 
-#### ⚠ Privacy Case (Email Already Exists)
-If Supabase cannot reveal whether the email exists  
-(`data.user.identities.length === 0`):
+#### Happy Path
 
-UI shows a neutral (non-error) message:
+- Enter new email and valid password
 
-> **This email address may already be registered.**
+- Account created
 
-Then the UI shows:
+- Message displayed:
 
-- **Log in**
-- **Reset password**
+> Account created! Please check your email to confirm.
 
-No redirect occurs.
+- Redirect to login after a short delay
 
-#### ❌ Real Errors
-(weak password, invalid email, etc.)
+#### Privacy-Safe Case
 
-Displayed as a red error message.  
-No redirect.
+- Message:
 
----
+> This email address may already be registered.
 
-### **3. Forgot Password Flow**
-1. User enters an email in **/forgot-password**  
-2. Supabase sends a reset link (if account exists)  
-3. UI always shows the same security-safe confirmation:
+- Options: Log in or Reset password
 
-> **If an account exists for this email, a reset link has been sent.**
+### 3️⃣ Forgot Password
 
----
+- User enters email
 
-### **4. Reset Password Flow**
+- Supabase sends reset link if account exists
 
-Accessible only via Supabase’s email link.
+- UI always shows:
 
-#### ✅ Happy Path
-1. User enters new password + confirmation  
-2. `supabase.auth.updateUser()` updates password  
-3. UI shows success message  
-4. Redirects to **Login** after 2 seconds
+If an account exists for this email, a reset link has been sent.
 
-#### ❌ Expired / Invalid Token
-If the reset link is expired or invalid:
+### 4️⃣ Reset Password
 
-> **This password reset link is invalid or has expired.**
+- Accessed only via Supabase email link
 
-UI also shows:
+#### Success
 
-- **Request a new reset link** → /forgot-password
+- Password updated
 
----
+- Redirect to login
 
-### **5. UX Principles Implemented**
-- Neutral messages for privacy-sensitive cases  
-- Clear visual distinction between **success**, **neutral**, and **error**  
-- Reset link available wherever confusion might occur  
-- Redirects delayed to allow users to read success messages  
-- No sensitive Supabase information exposed in UI  
+#### Invalid / Expired Token
 
----
+-Message shown with option to request a new reset link
 
+### 5️⃣ UX Principles Applied
 
+- Offline-friendly usage via Local Storage
 
-🧾 License
+- Privacy-safe messaging
 
-MIT License © 2025 Maryam.S
+- Clear guest vs authenticated states
 
+- No sensitive Supabase data exposed
 
----
+- Predictable redirects and readable feedback
 
-💡 About This Project
 
-This project is part of my portfolio and was built to demonstrate a full-stack workflow — from database design and API interaction to frontend state management and UI design.
-It reflects my focus on clean code, usability, and continuous learning as a frontend developer.
+## 🧩 Future Enhancements
 
+- Recruiter & contact management
+
+- Advanced filtering and sorting
+
+- Document uploads (CVs, cover letters)
+
+- Smart reminders and analytics
+
+
+## 🧾 License
+
+MIT License © 2025 Maryam Saleh
+
+## 💡 About This Project
+
+This project demonstrates a complete, realistic full-stack workflow — including guest usage, authentication, data migration, and user-owned persistence.
+
+It reflects my focus on:
+
+- clean, maintainable code
+
+- thoughtful UX decisions
+
+- building software that works naturally for real users
