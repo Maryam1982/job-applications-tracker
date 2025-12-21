@@ -1,10 +1,12 @@
 import { render, screen } from "@testing-library/react";
+import { vi } from "vitest";
+import LandingPage from "@/app/page";
 
-function Dummy() {
-  return <h1>Hello CI</h1>;
-}
+vi.mock("@/lib/auth/getUserServer", () => ({
+  getUserServer: vi.fn().mockResolvedValue(null),
+}));
 
-test("renders without crashing", () => {
-  render(<Dummy />);
-  expect(screen.getByText("Hello CI")).toBeInTheDocument();
+test("app renders without crashing", async () => {
+  render(await LandingPage());
+  expect(screen.getByRole("main")).toBeInTheDocument();
 });
