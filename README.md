@@ -1,5 +1,7 @@
 # 🗂️ Job Application Tracker
 
+![CI](https://github.com/Maryam1982/job-applications-tracker/actions/workflows/ci.yml/badge.svg)
+
 A clean, production-oriented web application to help users track their job applications — from submission to interviews — built with **Next.js**, **Supabase**, and **PostgreSQL**.
 
 This project is part of my portfolio and focuses on real-world concerns such as authentication flows, data ownership, offline-friendly UX, and scalable frontend architecture.
@@ -44,6 +46,20 @@ This project is part of my portfolio and focuses on real-world concerns such as 
 | Auth      | Supabase Auth               |
 | Storage  | Local Storage (guest mode)  |
 | Deploy   | Vercel (planned)            |
+
+---
+
+## 🧪 Testing
+
+This project uses a pragmatic, production-focused testing setup:
+
+- **Vitest** as the test runner
+- **React Testing Library** for user-centric component testing
+- Tests focus on **observable behavior**, accessibility, and critical user flows
+- Server-side dependencies (e.g. auth, adapters) are mocked at clear boundaries
+- A **smoke test** ensures the app boots correctly in CI
+
+This approach provides confidence without over-testing implementation details.
 
 ---
 
