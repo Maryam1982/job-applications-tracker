@@ -8,7 +8,8 @@ export async function getMonthlyStatusBuckets() {
 
   const { data: rows } = await supabase
     .from("job_applications")
-    .select("application_date, status");
+    .select("application_date, status")
+    .order("application_date", { ascending: true });
 
   const normalized =
     rows?.map((row) => ({
