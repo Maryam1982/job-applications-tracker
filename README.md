@@ -72,7 +72,7 @@ This approach provides confidence without over-testing implementation details.
 - Each server-side record is associated with a `user_id`  
 - Modular component structure designed for clarity and scalability  
 
-> A simple architecture diagram will be added soon.
+![architecture](https://github.com/user-attachments/assets/c31422a1-3595-458a-8be9-7fe71499c88b)
 
 ---
 
